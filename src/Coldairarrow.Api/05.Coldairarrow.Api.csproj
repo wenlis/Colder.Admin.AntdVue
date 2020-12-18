@@ -6,6 +6,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Coldairarrow.Api</RootNamespace>
     <AssemblyName>Coldairarrow.Api</AssemblyName>
+    <UserSecretsId>875105d9-0498-4eb9-9bac-69d10e880e4a</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -26,6 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="Colder.Logging.Serilog" Version="1.0.5" />
+    <PackageReference Include="EFCore.Sharding.MySql" Version="5.0.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.0" />
     <PackageReference Include="NSwag.AspNetCore" Version="13.9.4" />

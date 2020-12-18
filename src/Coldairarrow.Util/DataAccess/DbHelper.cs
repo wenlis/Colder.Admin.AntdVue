@@ -267,7 +267,7 @@ namespace Coldairarrow.Util
                 string newPropertyStr =
 $@"
         /// <summary>
-        /// {description}
+        /// {description.Replace("\n", "")}
         /// </summary>{isKey}
         public {type.Name}{isNullable} {item.Name} {{ get; set; }}
 ";
@@ -289,6 +289,13 @@ namespace {nameSpace}
 {properties}
     }}
 }}";
+
+            var directory = filePath.Replace(Path.GetFileName(filePath), "");
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             File.WriteAllText(filePath, fileStr, Encoding.UTF8);
         }
 

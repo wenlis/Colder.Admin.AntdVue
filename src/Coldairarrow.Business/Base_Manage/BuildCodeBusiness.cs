@@ -56,7 +56,7 @@ namespace Coldairarrow.Business.Base_Manage
             _dbHelper = GetTheDbHelper(linkId);
             GetDbTableList(linkId).ForEach(aTable =>
             {
-                _dbTableInfoDic.Add(aTable.TableName, aTable);
+                _dbTableInfoDic.Add(aTable.TableName.ToFirstUpperStr(), aTable);
             });
 
             tables.ForEach(aTable =>
@@ -64,7 +64,7 @@ namespace Coldairarrow.Business.Base_Manage
                 var tableFieldInfo = _dbHelper.GetDbTableInfo(aTable);
 
                 //实体名
-                string entityName = aTable;
+                string entityName = aTable.ToFirstUpperStr();
                 //业务逻辑参数名
                 string busName = $"{entityName.ToFirstLowerStr()}Bus";
                 //业务逻辑变量名
@@ -98,7 +98,7 @@ $@"        <a-form-model-item label=""{aField.Description}"" prop=""{aField.Name
                     //实体层
                     if (buildTypes.Contains(0))
                     {
-                        BuildEntity(tableFieldInfo, aTable);
+                        BuildEntity(tableFieldInfo, entityName);
                     }
                     string tmpFileName = string.Empty;
                     string savePath = string.Empty;
@@ -203,6 +203,13 @@ $@"        <a-form-model-item label=""{aField.Description}"" prop=""{aField.Name
             {
                 content = content.Replace(aParamter.Key, aParamter.Value);
             });
+
+            var directory = savePath.Replace(Path.GetFileName(savePath), "");
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
             File.WriteAllText(savePath, content, Encoding.UTF8);
         }
 

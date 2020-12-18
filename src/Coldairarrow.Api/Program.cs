@@ -1,4 +1,5 @@
-﻿using Coldairarrow.Util;
+﻿using Coldairarrow.Business.EBook;
+using Coldairarrow.Util;
 using Colder.Logging.Serilog;
 using EFCore.Sharding;
 using Microsoft.AspNetCore.Hosting;
@@ -22,8 +23,11 @@ namespace Coldairarrow.Api
                     services.AddEFCoreSharding(config =>
                     {
                         var dbOptions = hostContext.Configuration.GetSection("Database:BaseDb").Get<DatabaseOptions>();
-
                         config.UseDatabase(dbOptions.ConnectionString, dbOptions.DatabaseType);
+
+                        var ebookDbOptions = hostContext.Configuration.GetSection("Database:EBookDb").Get<DatabaseOptions>();
+                        config.UseDatabase<IEBookDbAccessor>(ebookDbOptions.ConnectionString, ebookDbOptions.DatabaseType);
+
                     });
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
